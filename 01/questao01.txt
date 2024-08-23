@@ -1,0 +1,3 @@
+Encontrar as raízes da função
+f(x) = sen(10x) + cos(3x)
+no intervalo de XA = 3 e XB = 6. Precisão 10^-5
