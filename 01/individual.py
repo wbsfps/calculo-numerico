@@ -10,10 +10,9 @@ xb = 6
 PRECISION = 0.00001
 
 # 2. Cálculos iniciais
-# Criar função
 
 
-def calculate_function(x) -> None:
+def calculate_function(x) -> float:
     return math.sin(10*x) + math.cos(3*x)
 
 
