@@ -63,9 +63,13 @@ if raiz is not None:
 else:
     print("Não foi possível encontrar uma raiz no intervalo fornecido.")
 
+print()
+
 print("Lista de intervalos:")
 for interval in list_intervals:
     print(f"Xa = {interval[0]:.5f}, Xb = {interval[1]:.5f}")
+
+print()
 
 print("\nMultiplicações dos Intervalos:")
 for mult in list_multiplication_intervals:
