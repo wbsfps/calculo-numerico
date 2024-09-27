@@ -1,56 +1,50 @@
-import numpy as np
-import matplotlib.pyplot as plt
+import math
 
-# Definindo a função e sua derivada
-
-
-def Cp(T):
-    return 0.99403 + 1.671e-4*T + 9.7215e-8*T**2 - 9.5838e-11*T**3 + 1.9520e-14*T**4
+CP = 1.1  # Calor específico kJ/ (Kg.K)
 
 
-def dCp_dT(T):
-    return 1.671e-4 + 1.9443e-7*T - 2.8751e-10*T**2 + 7.808e-14*T**3
-
-# Método de Newton
+def funcao(t):
+    return (0.99403) + (1.671e-4 * t) + (9.7215e-8 * (t ** 2)) - (9.5838e-11 * (t ** 3)) + (1.9520e-14 * (t ** 4))
 
 
-def newton(f, df, x0, tol):
-    x = x0
-    while abs(f(x)) > tol:
-        x = x - f(x)/df(x)
-    return x
-
-# Método da Bissecção
+def derivada(t):
+    return - ((5 * (2 * (h ** 2)) - (12 * h) + 9) / (math.sqrt((-h**2) + (6**h)))) - 3 * math.cos(1)
 
 
-def bissecao(f, a, b, tol):
-    while abs(b-a) > tol:
-        c = (a+b)/2
-        if f(a)*f(c) < 0:
-            b = c
+def bisseccao(xa, xb, precisao):
+    if not (funcao(xa) * funcao(xb) < 0):
+        xa = float(input('Digite um novo valor para Xa: '))
+        xb = float(input('Digite um novo valor para Xb: '))
+
+    while abs(xb - xa) >= precisao:
+        xm = (xa + xb) / 2
+        if abs(funcao(xm)) < precisao:
+            return print(f'{xm} = raiz')
+        if funcao(xa) * funcao(xm) < 0:
+            xb = xm
         else:
-            a = c
-    return (a+b)/2
+            xa = xm
+    return print(f'Raiz encontrada: {xm}')
 
 
-# Valores iniciais e precisão
-x0 = 1000  # Chute inicial para o método de Newton
-a = 0
-b = 1200
-tol = 1e-5
+def newton(x, precisao):
+    while abs(funcao(x)) >= precisao:
+        x_novo = x - funcao(x) / derivada(x)
+        if abs(x_novo - x) < precisao:
+            break
+        x = x_novo
+    print(f'Raiz encontrada: {x}')
 
-# Encontrando a raiz
-raiz_newton = newton(lambda T: Cp(T)-1.1, dCp_dT, x0, tol)
-raiz_bissecao = bissecao(lambda T: Cp(T)-1.1, a, b, tol)
 
-# Plotando o gráfico
-T = np.linspace(0, 1200, 1000)
-plt.plot(T, Cp(T))
-plt.xlabel('Temperatura (K)')
-plt.ylabel('Calor Específico (kJ/kg.K)')
-plt.title('Calor Específico do Ar Seco')
-plt.grid(True)
-plt.show()
+def secante(x0, x1, precisao):
+    while abs(funcao(x1)) >= precisao:
+        x_novo = x1 - funcao(x1) * (x1 - x0) / (funcao(x1) - funcao(x0))
+        if abs(x_novo - x1) < precisao:
+            break
+        x0, x1 = x1, x_novo
+    print(f'Raiz encontrada: {x_novo}')
 
-print("Raiz encontrada pelo método de Newton:", raiz_newton)
-print("Raiz encontrada pelo método da Bissecao:", raiz_bissecao)
+
+bisseccao(xa=0.01, xb=0.2, precisao=0.00001)
+newton(0.1, 0.00001)
+secante(0.1, 0.2, 0.00001)

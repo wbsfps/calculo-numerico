@@ -1,83 +1,42 @@
-import numpy as np
-import matplotlib.pyplot as plt
+import math
 
-# Definindo as constantes
-v0 = 30  # Velocidade inicial (m/s)
-g = 9.81  # Aceleração gravitacional (m/s^2)
-x_total = 90  # Distância horizontal total (m)
-y0 = 1.8  # Altura inicial (m)
-y_final = 1  # Altura final (m)
-precision = 1e-5  # Precisão para o método de Newton e bissecção
-
-# Definindo a função para a equação da trajetória
+R = 3  # valor do raio
+V = 8  # valor do de armazenamento no tanque
+L = 5
 
 
-def trajectory_eq(theta, x, v0, g, y0):
-    return np.tan(theta) * x - (g / (2 * v0**2 * np.cos(theta)**2)) * x**2 + y0
-
-# Definindo a função objetivo, queremos que f(theta) = y_final
+def funcao(h):
+    return (R ** 2) * (math.cos(-1)) * ((R - h) / R) - (R - h) * (math.sqrt(2 * R * h - h ** 2)) * L - V
 
 
-def f(theta):
-    return trajectory_eq(theta, x_total, v0, g, y0) - y_final
-
-# Derivada da função (necessária para o método de Newton)
+def derivada(h):
+    return - ((5 * (2 * (h ** 2)) - (12 * h) + 9) / (math.sqrt((-h**2) + (6**h)))) - 3 * math.cos(1)
 
 
-def df(theta):
-    return (x_total / np.cos(theta)**2) - ((g * x_total**2) / (v0**2 * np.cos(theta)**3)) * np.sin(2 * theta)
+def bisseccao(xa, xb, precisao):
+    if not (funcao(xa) * funcao(xb) < 0):
+        xa = float(input('Digite um novo valor para Xa: '))
+        xb = float(input('Digite um novo valor para Xb: '))
 
-# Método de Newton para encontrar o valor de theta
-
-
-def newton_method(f, df, theta0, tol):
-    theta = theta0
-    while abs(f(theta)) > tol:
-        theta = theta - f(theta) / df(theta)
-    return theta
-
-# Método da bissecção
-
-
-def bisection_method(f, a, b, tol):
-    while (b - a) / 2 > tol:
-        midpoint = (a + b) / 2
-        if f(midpoint) == 0:
-            return midpoint
-        elif f(a) * f(midpoint) < 0:
-            b = midpoint
+    while abs(xb - xa) >= precisao:
+        xm = (xa + xb) / 2
+        if abs(funcao(xm)) < precisao:
+            return print(f'{xm} = raiz')
+        if funcao(xa) * funcao(xm) < 0:
+            xb = xm
         else:
-            a = midpoint
-    return (a + b) / 2
+            xa = xm
+    return print(f'Raiz encontrada: {xm}')
 
 
-# Aplicando o método de Newton e bissecção
-theta_initial = np.radians(45)  # Chute inicial para o método de Newton
-theta_newton = newton_method(f, df, theta_initial, precision)
+def newton(x, precisao):
+    while abs(funcao(x)) >= precisao:
+        x_novo = x - funcao(x) / derivada(x)
+        if abs(x_novo - x) < precisao:
+            break
+        x = x_novo
+    print(f'Raiz encontrada: {x}')
 
-# Usando a bissecção com um intervalo de [0, pi/2]
-theta_bissection = bisection_method(f, 0, np.pi/2, precision)
 
-# Gerando os dados da trajetória com o valor de theta encontrado
-x_vals = np.linspace(0, x_total, 500)
-y_vals_newton = trajectory_eq(theta_newton, x_vals, v0, g, y0)
-y_vals_bissection = trajectory_eq(theta_bissection, x_vals, v0, g, y0)
-
-# Plotando os resultados
-plt.figure(figsize=(10, 6))
-plt.plot(x_vals, y_vals_newton, label=f'Trajetória (Newton): θ = {
-         np.degrees(theta_newton):.5f}°')
-plt.plot(x_vals, y_vals_bissection, label=f'Trajetória (Bissecção): θ = {
-         np.degrees(theta_bissection):.5f}°', linestyle='--')
-plt.axhline(y=y_final, color='r', linestyle=':', label='Altura final (1 m)')
-plt.axhline(y=y0, color='g', linestyle=':', label='Altura inicial (1.8 m)')
-plt.axvline(x=x_total, color='b', linestyle=':', label='Distância (90 m)')
-plt.xlabel('Distância horizontal (m)')
-plt.ylabel('Altura (m)')
-plt.title('Trajetória da Bola Lançada')
-plt.legend()
-plt.grid(True)
-plt.show()
-
-print(f'Valor em newton: {
-      theta_newton} / Valor com bissecção {theta_bissection}')
+bisseccao(xa=0.01, xb=0.2, precisao=0.00001)
+newton(0.1, 0.00001)

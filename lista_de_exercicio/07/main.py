@@ -37,5 +37,15 @@ def newton(x, precisao):
     print(f'Raiz encontrada: {x}')
 
 
+def secante(x0, x1, precisao):
+    while abs(funcao(x1)) >= precisao:
+        x_novo = x1 - funcao(x1) * (x1 - x0) / (funcao(x1) - funcao(x0))
+        if abs(x_novo - x1) < precisao:
+            break
+        x0, x1 = x1, x_novo
+    print(f'Raiz encontrada: {x_novo}')
+
+
 bisseccao(xa=0.01, xb=0.2, precisao=0.00001)
 newton(0.1, 0.00001)
+secante(0.1, 9, 0.00001)
