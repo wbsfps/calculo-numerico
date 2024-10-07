@@ -1,28 +1,32 @@
+
 import math
+
+#  math.log == ln
+#  math.log10 == log
 
 
 def funcao(t):
-    return (9 * math.e**-t) * (math.sin(2 * math.pi * t)) - 3.5
+    return 9 * (math.e * - t) * math.sin(2 * math.pi * t) - 3.5
 
 
 def derivada(t):
-    return 9*(6.2318*math.e**-t * math.cos(6.2318*t) - math.e**-t * math.sin(6.2318*t))
+    return (23400 / (-13 * t + 800)) - 9.81
 
 
 def bisseccao(xa, xb, precisao):
-    if not (funcao(xa) * funcao(xb) < 0):
-        xa = float(input('Digite um novo valor para Xa: '))
-        xb = float(input('Digite um novo valor para Xb: '))
+    if funcao(xa) * funcao(xb) > 0:
+        print(
+            'Não tem como garantir que tem raiz.')
 
     while abs(xb - xa) >= precisao:
         xm = (xa + xb) / 2
         if abs(funcao(xm)) < precisao:
-            return print(f'{xm} = raiz')
+            return print(f'Raiz = {xm};')
         if funcao(xa) * funcao(xm) < 0:
             xb = xm
         else:
             xa = xm
-    return print(f'Raiz encontrada: {xm}')
+    return print(f'Raiz encontrada: {xm};')
 
 
 def newton(x, precisao):
@@ -31,8 +35,19 @@ def newton(x, precisao):
         if abs(x_novo - x) < precisao:
             break
         x = x_novo
-    print(f'Raiz encontrada: {x}')
+    print(f'Raiz encontrada: {x};')
 
 
-bisseccao(xa=0.01, xb=0.5, precisao=0.00001)
-newton(0.1, 0.00001)
+def secante(x0, x1, precisao):
+    while abs(funcao(x1)) >= precisao:
+        x_novo = x1 - funcao(x1) * (x1 - x0) / (funcao(x1) - funcao(x0))
+        if abs(x_novo - x1) < precisao:
+            break
+        x0, x1 = x1, x_novo
+    print(f'Raiz encontrada: {x_novo};')
+
+
+bisseccao(20, 30, 10e-10)
+newton(25, 10e-10)
+secante(20, 30, 10e-10)
+# Alunos: William Batista e João Alfredo

@@ -1,33 +1,32 @@
+
 import math
 
-P = 35000  # valor do veículo
-A = 8500   # pagamentos anuais
-n = 7      # número de anos
+#  math.log == ln
+#  math.log10 == log
 
 
 def funcao(i):
-    return P * (i * (1 + i)**n) / ((1 + i)**n - 1) - A
+    return 35000 * ((i * (1 + i) ** 7) / (1 + i) ** 7 - 1) - 8500
 
 
 def derivada(i):
-    term1 = (1 + i)**n
-    return P * (term1 * (term1 - 1) - n * i * (1 + i)**(n - 1)) / ((term1 - 1)**2)
+    return
 
 
 def bisseccao(xa, xb, precisao):
-    if not (funcao(xa) * funcao(xb) < 0):
-        xa = float(input('Digite um novo valor para Xa: '))
-        xb = float(input('Digite um novo valor para Xb: '))
+    if funcao(xa) * funcao(xb) > 0:
+        print(
+            'Não tem como garantir que tem raiz.')
 
     while abs(xb - xa) >= precisao:
         xm = (xa + xb) / 2
         if abs(funcao(xm)) < precisao:
-            return print(f'{xm} = raiz')
+            return print(f'Raiz = {xm};')
         if funcao(xa) * funcao(xm) < 0:
             xb = xm
         else:
             xa = xm
-    return print(f'Raiz encontrada: {xm * 100 * 7:.2f}%')
+    return print(f'Raiz encontrada: {xm};')
 
 
 def newton(x, precisao):
@@ -36,8 +35,18 @@ def newton(x, precisao):
         if abs(x_novo - x) < precisao:
             break
         x = x_novo
-    print(f'Raiz encontrada: {x * 100 * 7:.2f}%')
+    print(f'Raiz encontrada: {x};')
 
 
-bisseccao(xa=0.01, xb=0.2, precisao=0.00001)
-newton(0.1, 0.00001)
+def secante(x0, x1, precisao):
+    while abs(funcao(x1)) >= precisao:
+        x_novo = x1 - funcao(x1) * (x1 - x0) / (funcao(x1) - funcao(x0))
+        if abs(x_novo - x1) < precisao:
+            break
+        x0, x1 = x1, x_novo
+    print(f'Raiz encontrada: {x_novo};')
+
+
+bisseccao(26, 27, 10e-10)
+newton(25, 10e-10)
+secante(20, 30, 10e-10)

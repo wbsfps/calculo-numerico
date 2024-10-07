@@ -1,0 +1,24 @@
+Método da bissecção 
+É um método de busca de raízes que bissecta repetidamente um intervalo e então seleciona um subintervalo(ponto médio) contendo a raiz para processamento adicional
+
+Trata-se de um método simples e robusto, mas relativamente lento quando comparado a métodos como o método de Newton ou o método das secantes.
+
+Por este motivo, ele é usado frequentemente para obter uma primeira aproximação de uma solução, a qual é então utilizada como ponto inicial para métodos que convergem mais rapidamente. O método também é chamado de método da pesquisa binária.
+
+Método de Newton
+O método de Newton-Raphson tem o inconveniente de necessitar da derivada da função.
+
+Por muitos autores o melhor método para encontrar sucessivas melhores aproximações de raízes (ou zeros) de uma determinada função real
+
+Um ponto importante a ser observado diz respeito a praticidade do método de Newton. Caso a função f seja complicada, encontrar sua derivada pode ser muito trabalhoso e o método torna-se improdutivo. Nesses casos, o método das secantes é mais produtivo de ser utilizado, porque não exige que a derivada de f seja conhecida.
+
+Método da secante
+
+O método da secante é um método recursivo, utilizado para encontrar a solução para uma equação, semelhante ao método de Newton-Raphson.
+A ideia é seguir a reta secante até sua intersecção com o eixo dos x e usar o ponto encontrado como uma aproximação para a raiz.
+
+Isto é semelhante ao método de Newton (que segue a reta tangente), mas requer duas estimativas iniciais para a raiz.
+
+A grande vantagem do método da secante em relação ao método de Newton-Raphson é que não requer que a função f(x) seja diferenciável e o algoritmo não
+precisa calcular a derivada. Isso é um facilitador visto que às vezes as derivadas só
+podem ser estimadas.

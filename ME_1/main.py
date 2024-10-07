@@ -1,7 +1,8 @@
 
 import math
 
-math.log
+#  math.log == ln
+#  math.log10 == log
 
 
 def funcao(t):
@@ -37,6 +38,17 @@ def newton(x, precisao):
     print(f'Raiz encontrada: {x};')
 
 
-bisseccao(20, 30, 10e-10)
+def secante(x0, x1, precisao):
+
+    while abs(funcao(x1)) >= precisao:
+        x_novo = x1 - funcao(x1) * (x1 - x0) / (funcao(x1) - funcao(x0))
+        if abs(x_novo - x1) < precisao:
+            break
+        x0, x1 = x1, x_novo
+    print(f'Raiz encontrada: {x_novo};')
+
+
+bisseccao(26, 27, 1e-10)
 newton(25, 10e-10)
+secante(20, 30, 10e-10)
 # Alunos: William Batista e João Alfredo
