@@ -1,4 +1,4 @@
-def gauss_jacobi_equations(equations, x0, tol=1e-10, max_iter=1000):
+def gauss_jacobi_equations(equations, x0, tol=1e-4, max_iter=1000):
     n = len(equations)
     x = x0.copy()
     for _ in range(max_iter):
@@ -28,4 +28,4 @@ equations = [equation1, equation2, equation3]
 x0 = [0, 0, 0]  # Aproximação inicial
 
 sol, iters = gauss_jacobi_equations(equations, x0)
-print(f'Solução encontrada: {sol} em {iters} iterações')
+print(f'Solução encontrada: {sol} em {iters} iterações')  # 4 iterações

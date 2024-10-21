@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def gauss_jacobi(A, b, x0, tol=1e-10, max_iter=1000):
+def gauss_jacobi(A, b, x0, tol=1e-4, max_iter=1000):
     n = len(b)
     x = x0.copy()
     for _ in range(max_iter):
@@ -20,9 +20,9 @@ def gauss_jacobi(A, b, x0, tol=1e-10, max_iter=1000):
 
 
 # Exemplo de uso
-A = np.array([[4, 1, 2], [3, 5, 1], [1, 1, 3]], dtype=float)
-b = np.array([4, 7, 3], dtype=float)
+A = np.array([[3, - 0.1, -0.2], [0.1, 7, -0.3], [0.3, -0.2, 10]], dtype=float)
+b = np.array([7.85, -19.3, 71.4], dtype=float)
 x0 = np.zeros_like(b)
 
 sol, iters = gauss_jacobi(A, b, x0)
-print(f'Solução encontrada: {sol} em {iters} iterações')
+print(f'Solução encontrada: {sol} em {iters} iterações')  # 4 iterações

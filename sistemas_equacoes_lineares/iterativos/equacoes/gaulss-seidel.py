@@ -28,4 +28,4 @@ equations = [equation1, equation2, equation3]
 x0 = [0, 0, 0]  # Aproximação inicial
 
 sol, iters = gauss_seidel_equations(equations, x0)
-print(f'Solução encontrada: {sol} em {iters} iterações')
+print(f'Solução encontrada: {sol} em {iters} iterações')  # 3 iterações
