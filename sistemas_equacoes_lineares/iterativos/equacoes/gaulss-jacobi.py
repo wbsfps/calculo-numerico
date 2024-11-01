@@ -1,4 +1,4 @@
-def gauss_jacobi_equations(equations, x0, tol=1e-4, max_iter=1000):
+def gauss_jacobi_equations(equations, x0, precisao=1e-4, max_iter=1000):
     n = len(equations)
     x = x0.copy()
     for _ in range(max_iter):
@@ -8,7 +8,7 @@ def gauss_jacobi_equations(equations, x0, tol=1e-4, max_iter=1000):
             x_new[i] = right_side / left_side
 
         # Verifica se a convergência foi atingida
-        if max(abs(x_new[i] - x[i]) for i in range(n)) < tol:
+        if max(abs(x_new[i] - x[i]) for i in range(n)) < precisao:
             return x_new, _
 
         x = x_new
@@ -28,4 +28,5 @@ equations = [equation1, equation2, equation3]
 x0 = [0, 0, 0]  # Aproximação inicial
 
 sol, iters = gauss_jacobi_equations(equations, x0)
-print(f'Solução encontrada: {sol} em {iters} iterações')  # 4 iterações
+print(f'Equações jacobi: solução encontrada: {sol} em {iters} iterações')
+# 4 iterações

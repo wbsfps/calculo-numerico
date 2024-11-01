@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def gauss_jacobi(A, b, x0, tol=1e-4, max_iter=1000):
+def gauss_jacobi(A, b, x0, precisao=1e-4, max_iter=1000):
     n = len(b)
     x = x0.copy()
     for _ in range(max_iter):
@@ -11,7 +11,7 @@ def gauss_jacobi(A, b, x0, tol=1e-4, max_iter=1000):
             x_new[i] = (b[i] - sum_j) / A[i][i]
 
         # Verifica se a convergência foi atingida
-        if np.linalg.norm(x_new - x, ord=np.inf) < tol:
+        if np.linalg.norm(x_new - x, ord=np.inf) < precisao:
             return x_new, _
 
         x = x_new
@@ -25,4 +25,5 @@ b = np.array([7.85, -19.3, 71.4], dtype=float)
 x0 = np.zeros_like(b)
 
 sol, iters = gauss_jacobi(A, b, x0)
-print(f'Solução encontrada: {sol} em {iters} iterações')  # 4 iterações
+print(f'Matriz jacobi: solução encontrada: {sol} em {iters} iterações')
+# 4 iterações
