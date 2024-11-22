@@ -4,37 +4,57 @@ Metal - 20x1 + 25x2 + 40x3 + 50x4 = 1970kg
 Plástico - 10x1 + 15x2 + 20x3 + 22x4 = 970kg
 Componnetes = 10x1 + 8x2 + 10x3 + 15x4 = 601kg
 """
+import numpy as np
 
 
-def gauss_seidel_equations(equations, x0, precisao=1e-1, max_iter=10000000):
-    n = len(equations)
+def gauss_jacobi(A, b, x0, precisao=1e-4, max_iter=1000):
+    n = len(b)
+    x = x0.copy()
+    for _ in range(max_iter):
+        x_new = np.zeros_like(x)
+        for i in range(n):
+            sum_j = sum(A[i][j] * x[j] for j in range(n) if j != i)
+            x_new[i] = (b[i] - sum_j) / A[i][i]
+
+        # Verifica se a convergência foi atingida
+        if np.linalg.norm(x_new - x, ord=np.inf) < precisao:
+            return x_new, _
+
+        x = x_new
+    raise ValueError(
+        "O método não convergiu após o número máximo de iterações")
+
+
+def gauss_seidel(A, b, x0, precisao=1e-4, max_iter=1000):
+    n = len(b)
     x = x0.copy()
     for _ in range(max_iter):
         x_new = x.copy()
         for i in range(n):
-            left_side, right_side = equations[i](x_new)
-            x_new[i] = right_side / left_side
+            sum_j = sum(A[i][j] * x_new[j] for j in range(i)) + \
+                sum(A[i][j] * x[j] for j in range(i + 1, n))
+            x_new[i] = (b[i] - sum_j) / A[i][i]
 
         # Verifica se a convergência foi atingida
-        if max(abs(x_new[i] - x[i]) for i in range(n)) < precisao:
+        if np.linalg.norm(x_new - x, ord=np.inf) < precisao:
             return x_new, _
 
         x = x_new
-
     raise ValueError(
-        f"O método não convergiu após {max_iter} iterações. Última aproximação: {x_new}")
-
-# Definindo as equações diretamente
+        "O método não convergiu após o número máximo de iterações")
 
 
-def equation1(x): return 3, 504 - 4 * x[1] - 7 * x[2] - 20 * x[3]
-def equation2(x): return 25, 1970 - 20 * x[0] - 40 * x[2] - 50 * x[3]
-def equation3(x): return 20, 970 - 10 * x[0] - 15 * x[1] - 22 * x[3]
-def equation4(x): return 15, 601 - 10 * x[0] - 8 * x[1] - 10 * x[2]
+# Exemplo de uso
+A = np.array([[3, 4, 7, 20], [20, 25, 40, 50], [
+             10, 15, 20, 22], [10, 8, 10, 15]], dtype=float)
+b = np.array([504, 1970, 970, 601], dtype=float)
+x0 = np.zeros_like(b)
 
+sol, iters = gauss_seidel(A, b, x0)
+print(f'Matriz seidel: solução encontrada: {sol} em {iters} iterações')
 
-equations = [equation1, equation2, equation3, equation4]
-x0 = [0, 0, 0, 0]  # Aproximação inicial
-
-sol, iters = gauss_seidel_equations(equations, x0)
-print(f'Equações seidel: solução encontrada: {sol} em {iters} iterações')
+sol, iters = gauss_jacobi(A, b, x0)
+print(f'Matriz jacobi: solução encontrada: {sol} em {iters} iterações')
+"""
+ValueError: O método não convergiu após o número máximo de iterações
+"""

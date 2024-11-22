@@ -21,7 +21,7 @@ def trapezios(f, a, b, n):
 # Método de Simpson (1/3)
 
 
-def simpson(f, a, b, n):
+def simpson_(f, a, b, n):
     if n % 2 != 0:
         raise ValueError("O número de subintervalos n deve ser par.")
     h = (b - a) / n
@@ -42,7 +42,7 @@ subintervalos = [2, 10]  # Subintervalos para comparação
 print("Cálculo da distância percorrida pelo objeto:\n")
 for n in subintervalos:
     distancia_trapezios = trapezios(v, a, b, n)
-    distancia_simpson = simpson(v, a, b, n)
+    distancia_simpson = simpson_(v, a, b, n)
     print(f"Subintervalos: {n}")
     print(f"Método dos Trapézios: {distancia_trapezios:.6f} m")
     print(f"Método de Simpson: {distancia_simpson:.6f} m\n")

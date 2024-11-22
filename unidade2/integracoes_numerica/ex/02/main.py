@@ -19,7 +19,7 @@ def trapezios(f, a, b, n):
 # Método de Simpson (1/3)
 
 
-def simpson(f, a, b, n):
+def simpson_(f, a, b, n):
     if n % 2 != 0:
         raise ValueError("O número de subintervalos n deve ser par.")
     h = (b - a) / n
@@ -38,7 +38,7 @@ subintervalos = [10, 100]
 print("Cálculo da força: \n")
 for valor in subintervalos:
     forca_trapezios = trapezios(f, a, b, valor)
-    forca_simpson = simpson(f, a, b, valor)
+    forca_simpson = simpson_(f, a, b, valor)
     print(f"Subintervalos: {valor}")
     print(f"Método dos Trapézios: {forca_trapezios:.6f} N")
     print(f"Método de Simpson: {forca_simpson:.6f} N\n")
