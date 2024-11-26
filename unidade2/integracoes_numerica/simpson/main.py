@@ -1,8 +1,9 @@
 import numpy as np
+import math
 
 
 def f(x):
-    return np.exp(x) * x**2
+    return (math.exp(x) * math.sin(x)) / (1 + x ** 2)
 
 
 def simpson_simples(f, a, b):
@@ -14,7 +15,7 @@ def simpson_simples(f, a, b):
 
 def simpson_composto(f, a, b, n):
     if n % 2 != 0:
-        raise ValueError("O número de subintervalos n deve ser par.")
+        print("teste")
     h = (b - a) / n
     soma = f(a) + f(b)
     for i in range(1, n, 2):
@@ -26,8 +27,12 @@ def simpson_composto(f, a, b, n):
 
 # Exemplo de uso
 a = 0  # Limite inferior
-b = 1  # Limite superior
-n = 4  # Número de subintervalos (par para Simpson composto)
+b = 2  # Limite superior
+n1 = 1  # Número de subintervalos (par para Simpson composto)
+n2 = 5  # Número de subintervalos (par para Simpson composto)
+n3 = 20  # Número de subintervalos (par para Simpson composto)
 
-print("Simpson Simples:", simpson_simples(f, a, b))
-print("Simpson Composto:", simpson_composto(f, a, b, n))
+
+print("Simpson Composto:", simpson_composto(f, a, b, n1))
+print("Simpson Composto:", simpson_composto(f, a, b, n2))
+print("Simpson Composto:", simpson_composto(f, a, b, n3))

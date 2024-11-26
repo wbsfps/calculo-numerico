@@ -63,20 +63,21 @@ def velocidade(t):
 
 
 # Discretização para os métodos
-n_values_q1 = [2, 10]  # Número de subintervalos para questão 1
-t_values_q1 = [np.linspace(0, t_final, n+1) for n in n_values_q1]
-v_values_q1 = [velocidade(t) for t in t_values_q1]
+valores_do_subintervalo = [2, 10]
+valores_do_tempo = [np.linspace(0, t_final, n+1)
+                    for n in valores_do_subintervalo]
+valores_da_velocidade = [velocidade(t) for t in valores_do_tempo]
 
 # Cálculos da questão 1
 resultados_q1 = {
-    "Trapézios": [trapezoid(v, t) for v, t in zip(v_values_q1, t_values_q1)],
+    "Trapézios": [trapezoid(v, t) for v, t in zip(valores_da_velocidade, valores_do_tempo)],
     # x especificado corretamente
-    "Simpson": [simpson(v, x=t) for v, t in zip(v_values_q1, t_values_q1)],
+    "Simpson": [simpson(v, x=t) for v, t in zip(valores_da_velocidade, valores_do_tempo)],
 }
 
 # Resultados
 print("Questão 1: Distância percorrida pelo objeto em queda livre")
-print(f"Trapézios (n=2): {resultados_q1['Trapézios'][0]:.2f} m")
-print(f"Trapézios (n=10): {resultados_q1['Trapézios'][1]:.2f} m")
-print(f"Simpson (n=2): {resultados_q1['Simpson'][0]:.2f} m")
-print(f"Simpson (n=10): {resultados_q1['Simpson'][1]:.2f} m")
+print(f"Trapézios (n=2): {resultados_q1['Trapézios'][0]:.4f} m")
+print(f"Trapézios (n=10): {resultados_q1['Trapézios'][1]:.4f} m")
+print(f"Simpson (n=2): {resultados_q1['Simpson'][0]:.4f} m")
+print(f"Simpson (n=10): {resultados_q1['Simpson'][1]:.4f} m")
