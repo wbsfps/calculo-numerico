@@ -23,19 +23,15 @@ def gauss_seidel(A, b, x0, precisao=1e-4, max_iter=1000):
 def gauss_jacobi(A, b, x0, precisao=1e-4, max_iter=1000):
     n = len(b)
     x = x0.copy()
-    for _ in range(max_iter):
+    for iter_count in range(max_iter):
         x_new = np.zeros_like(x)
         for i in range(n):
             sum_j = sum(A[i][j] * x[j] for j in range(n) if j != i)
             x_new[i] = (b[i] - sum_j) / A[i][i]
-
-        # Verifica se a convergência foi atingida
         if np.linalg.norm(x_new - x, ord=np.inf) < precisao:
-            return x_new, _
-
+            return x_new, iter_count + 1
         x = x_new
-    raise ValueError(
-        "O método não convergiu após o número máximo de iterações")
+    return None, max_iter
 
 
 # Exemplo de uso

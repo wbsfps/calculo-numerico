@@ -20,6 +20,20 @@ def gauss_seidel(A, b, x0, precisao=1e-4, max_iter=1000):
         "O método não convergiu após o número máximo de iterações")
 
 
+def gauss_jacobi(A, b, x0, precisao=1e-4, max_iter=1000):
+    n = len(b)
+    x = x0.copy()
+    for iter_count in range(max_iter):
+        x_new = np.zeros_like(x)
+        for i in range(n):
+            sum_j = sum(A[i][j] * x[j] for j in range(n) if j != i)
+            x_new[i] = (b[i] - sum_j) / A[i][i]
+        if np.linalg.norm(x_new - x, ord=np.inf) < precisao:
+            return x_new, iter_count + 1
+        x = x_new
+    return None, max_iter
+
+
 # Exemplo de uso
 A = np.array([[3, 2, 4], [2, 2, 3], [3, 3, 5]], dtype=float)
 b = np.array([320, 240, 380], dtype=float)
@@ -28,3 +42,7 @@ x0 = np.zeros_like(b)
 sol, iters = gauss_seidel(A, b, x0)
 print(f'Solução encontrada: {sol} em {iters} iterações')
 # Solução encontrada: [40.00081961 20.00061471 39.99913941] em 101 iterações
+
+sol, iters = gauss_jacobi(A, b, x0)
+print(f'Solução encontrada: {sol} em {iters} iterações')
+# Solução encontrada: None em 1000 iterações

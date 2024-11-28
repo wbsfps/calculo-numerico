@@ -49,10 +49,9 @@ print("Trapézio Composto: intervalo 1 ->",
       trapezio_composto(f, a, b, intervalo_1))
 print("Trapézio Composto: intervalo 5 ->",
       trapezio_composto(f, a, b, intervalo_2))
-print("Trapézio Composto: intervalo 20 ->",
+print("Trapézio Composto: intervalo 20 -> ",
       trapezio_composto(f, a, b, intervalo_3))
 
-print()
 print("Simpson Simples: ->", simpson_simples(f, a, b))
 print("Simpson Composto: intervalo 1 ->",
       simpson_composto(f, a, b, intervalo_1))

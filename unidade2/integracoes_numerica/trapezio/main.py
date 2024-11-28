@@ -1,8 +1,8 @@
-import numpy as np
+import math
 
 
 def f(x):
-    return np.exp(x) * x**2  # Exemplo: função quadrática
+    return (math.exp(x) * math.sin(x)) / (1 + x ** 2)
 
 # Método Simples do Trapézio
 
@@ -23,8 +23,12 @@ def trapezio_composto(f, a, b, n):
 
 # Exemplo de uso
 a = 0  # Limite inferior
-b = 1  # Limite superior
-n = 4  # Número de subintervalos (par para Simpson composto)
+b = 2  # Limite superior
+n1 = 1  # Número de subintervalos (par para Simpson composto)
+n2 = 5  # Número de subintervalos (par para Simpson composto)
+n3 = 20  # Número de subintervalos (par para Simpson composto)
 
 print("Trapézio Simples:", trapezio_simples(f, a, b))
-print("Trapézio Composto:", trapezio_composto(f, a, b, n))
+print("Trapézio Composto:", trapezio_composto(f, a, b, n1))
+print("Trapézio Composto:", trapezio_composto(f, a, b, n2))
+print("Trapézio Composto:", trapezio_composto(f, a, b, n3))
