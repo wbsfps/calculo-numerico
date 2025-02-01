@@ -38,8 +38,8 @@ def simpson_composto(f, a, b, n):
     return (h / 3) * soma
 
 
-a = 0
-b = 2
+a = 0  # Limite inferior
+b = 2  # Limite superior
 intervalo_1 = 1
 intervalo_2 = 5
 intervalo_3 = 20
